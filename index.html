@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta name="google-site-verification" content="N92ykthERoKsSOMC8LtnTbfFNAkzApv2OiVPzUImpdQ" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Web Dev Services | Digital Code Solution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
+        
+        .hero-slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            opacity: 0; transition: opacity 1.5s ease-in-out, transform 10s linear;
+            transform: scale(1.1);
+        }
+        .hero-slide.active { opacity: 1; transform: scale(1); }
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.9));
+            z-index: 0;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up { animation: fadeInUp 0.8s ease-out forwards; }
+        
+        .mobile-menu { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); }
+        .mobile-menu.active { transform: translateX(0); }
+        
+        .logo-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+        section { scroll-margin-top: 80px; }
+
+        /* Map Container styling */
+        .map-container {
+            width: 100%;
+            height: 400px;
+            filter: grayscale(20%) invert(5%) contrast(105%);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <header class="sticky top-0 z-[60] w-full shadow-sm bg-white">
+        <!-- Top Bar -->
+        <div class="bg-blue-900 text-white py-1 px-4">
+            <div class="max-w-7xl mx-auto flex justify-between items-center text-[10px] md:text-xs">
+                <div class="flex gap-4">
+                    <span><i class="fas fa-phone-alt text-blue-300 mr-1"></i> 07</span>
+                    <span class="hidden sm:inline"><i class="fas fa-phone-alt text-blue-300 mr-1"></i> 0704940118</span>
+                </div>
+                <div class="flex gap-4">
+                    <a href="https://web.facebook.com/profile.php?id=61584967169497" target="_blank" class="hover:text-blue-300"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <nav class="border-b">
+            <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+                <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <img class="logo-img border shadow-sm" src="https://i.postimg.cc/5yjMSdVg/Gemini-Generated-Image-wiv0kewiv0kewiv0.png" alt="Logo">
+                    <div class="flex flex-col">
+                        <span class="text-lg md:text-xl font-bold text-blue-800 leading-tight">Digital Code Solution</span>
+                        <span class="text-[10px] font-medium text-gray-500 uppercase tracking-wider">(Pvt) Ltd</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-6 items-center font-semibold text-sm">
+                    <a href="#home" class="lang-text text-gray-700 hover:text-blue-600 transition" data-si="මුල් පිටුව" data-en="Home">මුල් පිටුව</a>
+                    <a href="#about" class="lang-text text-gray-700 hover:text-blue-600 transition" data-si="අප ගැන" data-en="About">අප ගැන</a>
+                    <a href="#services" class="lang-text text-gray-700 hover:text-blue-600 transition" data-si="සේවා" data-en="Services">සේවා</a>
+                    <a href="#portfolio" class="lang-text text-gray-700 hover:text-blue-600 transition" data-si="නිර්මාණ" data-en="Portfolio">නිර්මාණ</a>
+                    <a href="#pricing" class="lang-text text-gray-700 hover:text-blue-600 transition" data-si="මිල ගණන්" data-en="Pricing">මිල ගණන්</a>
+                    
+                    <button onclick="toggleLanguage()" class="border border-gray-200 px-3 py-1 rounded-lg text-xs flex items-center gap-2 hover:bg-gray-50 transition">
+                        <i class="fas fa-globe text-blue-600"></i> <span id="langBtnText">English</span>
+                    </button>
+                    
+                    <a href="#contact" class="lang-text bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition shadow-md" data-si="දැන් අමතන්න" data-en="Contact Us">දැන් අමතන්න</a>
+                </div>
+
+                <button id="menuOpen" class="md:hidden text-2xl text-gray-700 p-2">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenu" class="mobile-menu fixed inset-0 z-[100] bg-white flex flex-col p-8 space-y-6 md:hidden">
+        <div class="flex justify-between items-center">
+            <span class="font-bold text-blue-700 text-xl">DCS Menu</span>
+            <button id="menuClose" class="text-3xl text-gray-500"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="flex flex-col space-y-4 pt-8 text-center">
+            <a href="#home" class="lang-text mobile-link text-xl font-semibold border-b pb-4" data-si="මුල් පිටුව" data-en="Home">මුල් පිටුව</a>
+            <a href="#about" class="lang-text mobile-link text-xl font-semibold border-b pb-4" data-si="අප ගැන" data-en="About">අප ගැන</a>
+            <a href="#services" class="lang-text mobile-link text-xl font-semibold border-b pb-4" data-si="සේවා" data-en="Services">සේවා</a>
+            <a href="#portfolio" class="lang-text mobile-link text-xl font-semibold border-b pb-4" data-si="නිර්මාණ" data-en="Portfolio">නිර්මාණ</a>
+            <a href="#pricing" class="lang-text mobile-link text-xl font-semibold border-b pb-4" data-si="මිල ගණන්" data-en="Pricing">මිල ගණන්</a>
+            <a href="#contact" class="lang-text mobile-link text-xl font-semibold border-b pb-4 text-blue-600" data-si="සම්බන්ධ වන්න" data-en="Contact Us">සම්බන්ධ වන්න</a>
+            <button onclick="toggleLanguage()" class="mt-4 border border-gray-200 px-3 py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-50 transition">
+                <i class="fas fa-globe text-blue-600"></i> <span class="lang-toggle-label">Switch to English</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-[85vh] flex items-center justify-center text-center text-white overflow-hidden">
+        <div class="absolute inset-0 z-[-1]">
+            <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015');"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070');"></div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="relative z-10 px-4 animate-fade-up">
+            <h1 class="lang-text text-4xl md:text-6xl font-extrabold mb-6 leading-tight" data-si="ඔබේ ව්‍යාපාරයට නවීන වෙබ් විසඳුම්" data-en="Modern Web Solutions For Your Business">ඔබේ ව්‍යාපාරයට නවීන වෙබ් විසඳුම්</h1>
+            <p class="lang-text text-lg md:text-xl mb-8 max-w-2xl mx-auto text-gray-200" data-si="අපි ඔබගේ සිහිනය යථාර්ථයක් බවට පත් කරමු." data-en="We turn your digital dreams into reality with high-end development.">අපි ඔබගේ සිහිනය යථාර්ථයක් බවට පත් කරමු.</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#services" class="lang-text bg-blue-600 px-8 py-3 rounded-xl font-bold hover:bg-blue-700 transition" data-si="සේවා සොයන්න" data-en="Explore Services">සේවා සොයන්න</a>
+                <a href="#contact" class="lang-text bg-white/20 backdrop-blur-md border border-white/30 px-8 py-3 rounded-xl font-bold hover:bg-white/30 transition" data-si="කතා කරමු" data-en="Contact Now">කතා කරමු</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 bg-white">
+        <div class="max-w-77 mx-auto flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070" alt="About Us" class="rounded-3xl shadow-2xl">
+            </div>
+            <div class="md:w-1/2">
+                <h2 class="lang-text text-blue-600 font-bold uppercase tracking-widest mb-2" data-si="අප ගැන" data-en="About Us">අප ගැන</h2>
+                <h3 class="lang-text text-3xl md:text-4xl font-bold mb-6 text-gray-800" data-si="අපි කවුද?" data-en="Who We Are?">අපි කවුද?</h3>
+                <p class="lang-text text-gray-600 leading-relaxed mb-6" data-si="Digital Code Solution යනු නවීන තාක්ෂණය භාවිතයෙන් වෙබ් අඩවි නිර්මාණය කරන ප්‍රමුඛ ආයතනයකි. වසර ගණනාවක අත්දැකීම් සමඟින් අපි ඔබට ඉහළම ගුණාත්මක බව සහතික කරමු." data-en="Digital Code Solution is a leading agency specializing in modern web development. With years of experience, we ensure the highest quality and performance for your business.">Digital Code Solution යනු නවීන තාක්ෂණය භාවිතයෙන් වෙබ් අඩවි නිර්මාණය කරන ප්‍රමුඛ ආයතනයකි. වසර ගණනාවක අත්දැකීම් සමඟින් අපි ඔබට ඉහළම ගුණාත්මක බව සහතික කරමු.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> <span class="lang-text" data-si="වේගවත් වෙබ් අඩවි" data-en="Ultra Fast Performance">වේගවත් වෙබ් අඩවි</span></li>
+                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> <span class="lang-text" data-si="ජංගම දුරකථන වලට ගැලපෙන (Responsive)" data-en="Fully Responsive Design">ජංගම දුරකථන වලට ගැලපෙන (Responsive)</span></li>
+                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> <span class="lang-text" data-si="SEO හිතකාමී නිර්මාණ" data-en="SEO Friendly Development">SEO හිතකාමී නිර්මාණ</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 px-4 bg-gray-100">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="lang-text text-3xl md:text-4xl font-bold mb-12" data-si="අපගේ සේවාවන්" data-en="Our Services">අපගේ සේවාවන්</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition group text-left">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-blue-600 group-hover:text-white transition">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h4 class="lang-text text-xl font-bold mb-4" data-si="වෙබ් අඩවි නිර්මාණය" data-en="Web Design">වෙබ් අඩවි නිර්මාණය</h4>
+                    <p class="lang-text text-gray-500" data-si="ව්‍යාපාරික හෝ පෞද්ගලික අවශ්‍යතා සඳහා ආකර්ශනීය වෙබ් අඩවි නිර්මාණය කිරීම." data-en="Creating stunning websites for business or personal needs.">ව්‍යාපාරික හෝ පෞද්ගලික අවශ්‍යතා සඳහා ආකර්ශනීය වෙබ් අඩවි නිර්මාණය කිරීම.</p>
+                </div>
+                <!-- Service 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition group text-left">
+                    <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-purple-600 group-hover:text-white transition">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h4 class="lang-text text-xl font-bold mb-4" data-si="E-Commerce විසඳුම්" data-en="E-Commerce Solutions">E-Commerce විසඳුම්</h4>
+                    <p class="lang-text text-gray-500" data-si="ඔබේ භාණ්ඩ අන්තර්ජාලය හරහා විකිණීමට අවශ්‍ය සියලුම පහසුකම් සහිත පද්ධති." data-en="Full-featured online stores to sell your products globally.">ඔබේ භාණ්ඩ අන්තර්ජාලය හරහා විකිණීමට අවශ්‍ය සියලුම පහසුකම් සහිත පද්ධති.</p>
+                </div>
+                <!-- Service 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition group text-left">
+                    <div class="w-16 h-16 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-orange-600 group-hover:text-white transition">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h4 class="lang-text text-xl font-bold mb-4" data-si="වෙබ් නඩත්තුව" data-en="Website Maintenance">වෙබ් නඩත්තුව</h4>
+                    <p class="lang-text text-gray-500" data-si="කාලීන වෙනස්කම් සහ තාක්ෂණික දෝෂ නිරාකරණය කරමින් අඩවිය රැකබලා ගැනීම." data-en="Regular updates and technical support for your existing websites.">කාලීන වෙනස්කම් සහ තාක්ෂණික දෝෂ නිරාකරණය කරමින් අඩවිය රැකබලා ගැනීම.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 px-4 bg-white">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="lang-text text-3xl md:text-4xl font-bold mb-12" data-si="අපගේ නිර්මාණ" data-en="Our Portfolio">අපගේ නිර්මාණ</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="overflow-hidden rounded-xl relative group block cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500" alt="Portfolio 1">
+                    <div class="absolute inset-0 bg-blue-900/80 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white p-4">
+                        <div class="text-center">
+                            <span class="font-bold block text-lg mb-2">Corporate Web App</span>
+                            <span class="text-sm bg-white/20 px-3 py-1 rounded-full">View Site</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="overflow-hidden rounded-xl relative group block cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500" alt="Portfolio 2">
+                    <div class="absolute inset-0 bg-blue-900/80 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white p-4">
+                        <div class="text-center">
+                            <span class="font-bold block text-lg mb-2">Online Store</span>
+                            <span class="text-sm bg-white/20 px-3 py-1 rounded-full">View Site</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="overflow-hidden rounded-xl relative group block cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500" alt="Portfolio 3">
+                    <div class="absolute inset-0 bg-blue-900/80 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white p-4">
+                        <div class="text-center">
+                            <span class="font-bold block text-lg mb-2">Educational Portal</span>
+                            <span class="text-sm bg-white/20 px-3 py-1 rounded-full">View Site</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 px-4 bg-blue-50">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="lang-text text-3xl md:text-4xl font-bold mb-12" data-si="මිල ගණන්" data-en="Pricing Plans">මිල ගණන්</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-3xl border border-gray-200">
+                    <h4 class="text-xl font-bold mb-2">Starter</h4>
+                    <div class="text-3xl font-bold text-blue-600 mb-6">Rs. 15,000<span class="text-sm text-gray-400">/Start</span></div>
+                    <ul class="text-gray-600 space-y-3 mb-8 text-left">
+                        <li><i class="fas fa-check text-blue-500 mr-2"></i> 1 Page Website</li>
+                        <li><i class="fas fa-check text-blue-500 mr-2"></i> Mobile Friendly</li>
+                        <li><i class="fas fa-check text-blue-500 mr-2"></i> 1 Year Support</li>
+                    </ul>
+                    <a href="#contact" class="lang-text block w-full py-3 rounded-xl border border-blue-600 text-blue-600 font-bold hover:bg-blue-600 hover:text-white transition" data-si="තෝරන්න" data-en="Select Plan">තෝරන්න</a>
+                </div>
+                <div class="bg-blue-600 p-8 rounded-3xl text-white transform scale-105 shadow-xl">
+                    <h4 class="text-xl font-bold mb-2">Business</h4>
+                    <div class="text-3xl font-bold mb-6">Rs. 35,000<span class="text-sm opacity-60">/Start</span></div>
+                    <ul class="opacity-90 space-y-3 mb-8 text-left">
+                        <li><i class="fas fa-check mr-2"></i> Up to 5 P</li>
+                        <li><i class="fas fa-check mr-2"></i> SEO Setup</li>
+                        <li><i class="fas fa-check mr-2"></i> Domain & Hosting</li>
+                    </ul>
+                    <a href="#contact" class="lang-text block w-full py-3 rounded-xl bg-white text-blue-600 font-bold hover:bg-gray-100 transition" data-si="ජනප්‍රිය පැකේජය" data-en="Popular Plan">ජනප්‍රිය පැකේජය</a>
+                </div>
+                <div class="bg-white p-8 rounded-3xl border border-gray-200">
+                    <h4 class="text-xl font-bold mb-2">Premium</h4>
+                    <div class="text-3xl font-bold text-blue-600 mb-6">Custom</div>
+                    <ul class="text-gray-600 space-y-3 mb-8 text-left">
+                        <li><i class="fas fa-check text-blue-500 mr-2"></i> E-Commerce System</li>
+                        <li><i class="fas fa-check text-blue-500 mr-2"></i> Admin Dashboard</li>
+                        <li><i class="fas fa-check text-blue-500 mr-2"></i> Advanced Security</li>
+                    </ul>
+                    <a href="#contact" class="lang-text block w-full py-3 rounded-xl border border-blue-600 text-blue-600 font-bold hover:bg-blue-600 hover:text-white transition" data-si="අපට කතා කරන්න" data-en="Contact Us">අපට කතා කරන්න</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Map Section -->
+    <section id="contact" class="py-24 px-4 bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row gap-12 mb-16">
+                <div class="md:w-1/2">
+                    <h2 class="lang-text text-4xl font-bold mb-6" data-si="සම්බන්ධ වන්න" data-en="Contact Us">සම්බන්ධ වන්න</h2>
+                    <p class="lang-text text-gray-400 mb-8" data-si="ඔබේ සිහින ව්‍යාපෘතිය ආරම්භ කිරීමට සූදානම්ද? අදම අපට පණිවිඩයක් එවන්න." data-en="Ready to start your project? Let's discuss your ideas.">ඔබේ සිහින ව්‍යාපෘතිය ආරම්භ කිරීමට සූදානම්ද? අදම අපට පණිවිඩයක් එවන්න.</p>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <p class="text-xs text-gray-400">Phone</p>
+                                <span class="text-lg">0778003605 / 0704940118</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <p class="text-xs text-gray-400">Email</p>
+                                <span class="text-lg">ckthissa@gmail.com</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <p class="text-xs text-gray-400">Location</p>
+                                <span class="text-lg">Thissamaharama, Sri Lanka</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 bg-white/10 p-8 rounded-3xl backdrop-blur-md">
+                    <div id="status-message" class="hidden mb-6 p-4 rounded-xl text-center font-bold"></div>
+                    <form id="contact-form" class="space-y-4">
+                        <input type="text" name="user_name" id="user_name" placeholder="ඔබේ නම (Your Name)" required class="w-full bg-white/10 border border-white/20 p-3 rounded-xl focus:outline-none focus:border-blue-500 text-white placeholder-gray-400">
+                        <input type="tel" name="user_phone" id="user_phone" placeholder="දුරකථන අංකය (Phone Number)" required class="w-full bg-white/10 border border-white/20 p-3 rounded-xl focus:outline-none focus:border-blue-500 text-white placeholder-gray-400">
+                        <input type="email" name="user_email" id="user_email" placeholder="ඊමේල් ලිපිනය (Your Email)" required class="w-full bg-white/10 border border-white/20 p-3 rounded-xl focus:outline-none focus:border-blue-500 text-white placeholder-gray-400">
+                        <textarea name="message" id="message" placeholder="පණිවිඩය (Your Message)" rows="4" required class="w-full bg-white/10 border border-white/20 p-3 rounded-xl focus:outline-none focus:border-blue-500 text-white placeholder-gray-400"></textarea>
+                        
+                        <button type="submit" id="submitBtn" class="w-full bg-blue-600 p-4 rounded-xl font-bold hover:bg-blue-700 transition flex justify-center items-center shadow-lg">
+                            <span id="btnText" class="lang-text" data-si="පණිවිඩය යවන්න" data-en="Send Message">පණිවිඩය යවන්න</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Map Integration -->
+            <div class="mt-12 rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+                <div class="map-container">
+                    <iframe 
+                        width="100%" 
+                        height="100%" 
+                        frameborder="0" 
+                        scrolling="no" 
+                        marginheight="0" 
+                        marginwidth="0" 
+                        src="https://maps.google.com/maps?q=Thissamaharama&t=&z=14&ie=UTF8&iwloc=&output=embed">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black text-gray-500 py-12 px-4 text-center border-t border-gray-800">
+        <div class="mb-4 flex justify-center gap-6">
+             <a href="https://web.facebook.com/profile.php?id=61584967169497" target="_blank" class="text-xl hover:text-white transition"><i class="fab fa-facebook"></i></a>
+             <a href="#" class="text-xl hover:text-white transition"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p class="text-xs">© 2025 Digital Code Solution (Pvt) Ltd. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Language Toggle Logic
+        let currentLang = 'si'; // Default Sinhala
+        
+        function toggleLanguage() {
+            currentLang = currentLang === 'si' ? 'en' : 'si';
+            const elements = document.querySelectorAll('.lang-text');
+            const langBtnText = document.getElementById('langBtnText');
+            const mobileBtnLabel = document.querySelector('.lang-toggle-label');
+
+            elements.forEach(el => {
+                el.innerText = el.getAttribute(`data-${currentLang}`);
+            });
+
+            if (currentLang === 'en') {
+                langBtnText.innerText = 'සිංහල';
+                if(mobileBtnLabel) mobileBtnLabel.innerText = 'Switch to Sinhala';
+            } else {
+                langBtnText.innerText = 'English';
+                if(mobileBtnLabel) mobileBtnLabel.innerText = 'Switch to English';
+            }
+        }
+
+        // Hero Slider
+        const slides = document.querySelectorAll('.hero-slide');
+        let currentSlide = 0;
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        setInterval(nextSlide, 5000);
+
+        // Mobile Menu
+        const menuOpen = document.getElementById('menuOpen');
+        const menuClose = document.getElementById('menuClose');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuOpen.addEventListener('click', () => mobileMenu.classList.add('active'));
+        menuClose.addEventListener('click', () => mobileMenu.classList.remove('active'));
+        mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('active')));
+
+        // Form Submission Logic
+        const contactForm = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const statusMessage = document.getElementById('status-message');
+
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            btnText.innerText = currentLang === 'si' ? "යවමින් පවතී..." : "Sending...";
+            const formData = new FormData(this);
+            try {
+                const response = await fetch("https://formspree.io/f/xjgkkdln", {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (response.ok) {
+                    statusMessage.innerText = currentLang === 'si' ? "පණිවිඩය සාර්ථකව ලැබුණා!" : "Message sent successfully!";
+                    statusMessage.className = "mb-6 p-4 rounded-xl text-center font-bold bg-green-500/20 text-green-400 block";
+                    contactForm.reset();
+                } else { throw new Error(); }
+            } catch (error) {
+                statusMessage.innerText = currentLang === 'si' ? "දෝෂයක් ඇති විය." : "Oops! An error occurred.";
+                statusMessage.className = "mb-6 p-4 rounded-xl text-center font-bold bg-red-500/20 text-red-400 block";
+            } finally {
+                submitBtn.disabled = false;
+                btnText.innerText = currentLang === 'si' ? "පණිවිඩය යවන්න" : "Send Message";
+                statusMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    </script>
+</body>
+</html>
